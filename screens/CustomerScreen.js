@@ -9,7 +9,7 @@ class CustomerScreen extends React.Component
         return (
             <View>
                 <HeaderCustom navigation={this.props.navigation} />
-                <ListCustomer/>
+                <ListCustomer navigation={this.props.navigation}/>
             </View>
         )
     }

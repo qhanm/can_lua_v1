@@ -6,6 +6,7 @@ import HomeDrawer from "../drawers/HomeDrawer";
 import CustomerScreen from "../screens/CustomerScreen";
 import AddClientScreen from "../screens/AddClientScreen";
 import AddCustomerScreen from "../screens/AddCustomerScreen";
+import CalculatorScreen from "../screens/CalculatorScreen";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ class HomeStack extends React.Component
                     <Stack.Screen name="CustomerScreen" component={CustomerScreen} />
                     <Stack.Screen name="AddClientScreen" component={AddClientScreen} />
                     <Stack.Screen name="AddCustomerScreen" component={AddCustomerScreen} />
+                    <Stack.Screen name="CalculatorScreen" component={CalculatorScreen} />
                 </Stack.Navigator>
             </NavigationContainer>
         )

@@ -41,6 +41,8 @@ export const PageConstant = {
     CustomerScreen: 'CustomerScreen',
     AddClientScreen: 'AddClientScreen',
     AddCustomerScreen: 'AddCustomerScreen',
+    CalculatorComponent: 'CalculatorComponent',
+    CalculatorScreen: 'CalculatorScreen',
 }
 
 export const Font = 'tahoma';

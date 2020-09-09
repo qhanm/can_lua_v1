@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from "react-native";
-import {Color, DefaultStyle, Font} from "../../utils/Constant";
+import {Color, DefaultStyle, Font, PageConstant} from "../../utils/Constant";
 import {Icon} from "react-native-elements";
 
 const styles = StyleSheet.create({
@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
 export default class CustomerComponent extends Component
 {
     render() {
+
+        const {navigation} = this.props;
+
         return (
             <View style={styles.container}>
                 <View style={[DefaultStyle.Card, {width: '95%'}]}>
@@ -43,7 +46,7 @@ export default class CustomerComponent extends Component
                         style={[styles.column, {borderBottomColor: Color.Red,borderBottomWidth: 1}]}
                     >
                         <View style={styles.row}>
-                            <TouchableOpacity onPress={() => {console.log('call')}}>
+                            <TouchableOpacity onPress={() => { this.props.navigation.navigate(PageConstant.CalculatorScreen) }}>
                                 <Text style={[styles.text, {fontSize: 18, color: Color.Navy}]}>Nam - Jas</Text>
                             </TouchableOpacity>
                             <Icon name='delete' color={Color.White} style={styles.iconDelete}/>

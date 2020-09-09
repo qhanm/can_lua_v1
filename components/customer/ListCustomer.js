@@ -9,13 +9,11 @@ class ListCustomer extends React.Component
         return (
             <SafeAreaView>
                 <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
-                    <CustomerComponent />
-                    <CustomerComponent />
-                    <CustomerComponent />
-                    <CustomerComponent />
-                    <CustomerComponent />
-                    <CustomerComponent />
-                    <CustomerComponent />
+                    <CustomerComponent navigation={this.props.navigation}/>
+                    <CustomerComponent navigation={this.props.navigation}/>
+                    <CustomerComponent navigation={this.props.navigation}/>
+                    <CustomerComponent navigation={this.props.navigation}/>
+                    <CustomerComponent navigation={this.props.navigation}/>
                 </ScrollView>
             </SafeAreaView>
         )
