@@ -3,9 +3,12 @@ export const Color = {
     Black: '#333333',
     Silver: '#555555',
     Sliver1: '#EEEEEE',
+    Sliver2: '#DDDDDD',
     Blue: '#0000FF',
     White: '#FFFFFF',
     Navy: '#000080',
+    Sliver3: '#EEEEEE',
+    Yellow: '#FF9900',
 }
 
 export const DefaultStyle = {
@@ -31,6 +34,9 @@ export const DefaultStyle = {
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.5,
         shadowRadius: 5,
+    },
+    GeneralText: {
+
     }
 }
 

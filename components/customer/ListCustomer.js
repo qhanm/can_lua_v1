@@ -1,6 +1,5 @@
 import React from 'react';
 import {ScrollView, View, SafeAreaView} from "react-native";
-import CustomerScreen from "../../screens/CustomerScreen";
 import CustomerComponent from "./CustomerComponent";
 
 class ListCustomer extends React.Component
