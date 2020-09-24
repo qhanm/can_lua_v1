@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions, SafeAreaView, ToastAndroid  } from 'react-native';
 import GroupClient from "./GroupClient";
 import {DefaultStyle} from "../../utils/Constant";
+import { db } from '../../databases/Setup';
 
 class ListClientComponent extends React.Component
 {
@@ -9,10 +10,21 @@ class ListClientComponent extends React.Component
         super(props);
         this.state = {
             heightScrollView: 10,
+            clientGroup : []
         }
     }
     componentDidMount(): void {
-        //console.log(Dimensions.get('window').height);
+        db.transaction(function (_transaction) {
+            _transaction.executeSql('select * from client_group', [], function(tx, res) {
+                console.log(res.rows);
+                for(let i = 0; i < res.rows.length; i++){
+
+                    console.log(res.rows.item(i));
+                    //this.setState({clientGroup: res.rows.item(i)})
+                }
+            })
+
+        })
     }
 
     getHeightView = (event) => {
@@ -31,6 +43,7 @@ class ListClientComponent extends React.Component
     }
 
     render() {
+        console.log(this.state.clientGroup);
         return (
             <View>
                 <SafeAreaView>

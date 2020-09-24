@@ -2,7 +2,6 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Color, DefaultStyle, Font, PageConstant} from "../../utils/Constant";
 import { Icon } from 'react-native-elements'
-import {sub} from "react-native-reanimated";
 import {SessionContext} from "../../context/SessionProvider";
 
 const styles = StyleSheet.create({
@@ -49,6 +48,10 @@ class GroupClient extends React.Component
             widthViewClientRight: 0,
             widthIconDelete: 0,
         }
+    }
+
+    componentDidMount() {
+
     }
 
     getHeightView = (event) => {
