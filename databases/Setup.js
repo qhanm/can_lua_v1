@@ -13,14 +13,14 @@ const install = () => {
         //_transaction.executeSql('insert into client_group(`date`) values ("2020-12-10")', [])
         //_transaction.executeSql('insert into client(`id_client_group`, `name`) values (1, "Quach Hoai Nam")', [])
 
-        _transaction.executeSql('select * from client_group', [], function(tx, res) {
-            console.log(res.rows);
-            for(let i = 0; i < res.rows.length; i++){
+        //_transaction.executeSql('select * from client_group', [], function(tx, res) {
+        //    console.log(res.rows);
+        //    for(let i = 0; i < res.rows.length; i++){
 
-                console.log(res.rows.item(i));
-                //this.setState({clientGroup: res.rows.item(i)})
-            }
-        })
+        //        console.log(res.rows.item(i));
+        //        //this.setState({clientGroup: res.rows.item(i)})
+        //    }
+        //})
     })
 }
 
@@ -30,7 +30,7 @@ const uninstall = () => {
 
 const Setup = {
     install: install,
-    uninstall: uninstall
+    uninstall: uninstall,
 }
 
 export default Setup;

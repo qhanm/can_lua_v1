@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Dimensions, SafeAreaView, ToastAndr
 import GroupClient from "./GroupClient";
 import {DefaultStyle} from "../../utils/Constant";
 import { db } from '../../databases/Setup';
+import SQLite from "react-native-sqlite-2";
 
 class ListClientComponent extends React.Component
 {
@@ -10,21 +11,40 @@ class ListClientComponent extends React.Component
         super(props);
         this.state = {
             heightScrollView: 10,
-            clientGroup : []
+            clientGroup : [],
+            test: "",
         }
     }
-    componentDidMount(): void {
-        db.transaction(function (_transaction) {
-            _transaction.executeSql('select * from client_group', [], function(tx, res) {
-                console.log(res.rows);
-                for(let i = 0; i < res.rows.length; i++){
+    componentDidMount() {
+        const test = this.getClientGroup(db).then(function (data){
+            //console.log(data, 'did mount')
+            let result = [];
+            for (let i = 0; i < data.rows.length; ++i) {
+                result.push(data.rows.item(i));
+            }
+            console.log(result, 'result');
 
-                    console.log(res.rows.item(i));
-                    //this.setState({clientGroup: res.rows.item(i)})
-                }
-            })
-
+            this.setState({clientGroup: result})
         })
+
+        console.log(test, 'test');
+
+    }
+
+    getClientGroup(db) {
+        return new Promise((resolve, reject) => {
+            db.transaction(tx => {
+                tx.executeSql('select * from client_group', [], (tx, results) => {
+                    //const { rows } = results;
+                    //let result = [];
+                    //for (let i = 0; i < rows.length; i++) {
+                    //    result.push(rows.item(i))
+                    //}
+                    resolve(results);
+                });
+            });
+        });
+
     }
 
     getHeightView = (event) => {
@@ -43,7 +63,7 @@ class ListClientComponent extends React.Component
     }
 
     render() {
-        console.log(this.state.clientGroup);
+        console.log(this.state.clientGroup, 'render');
         return (
             <View>
                 <SafeAreaView>
