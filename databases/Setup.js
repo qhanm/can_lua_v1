@@ -7,11 +7,11 @@ const install = () => {
     let createClient = 'create table if not exists client(`id` integer primary key not null, `id_client_group` integer not null, `name` varchar(50))';
 
     db.transaction(function(_transaction) {
-        //_transaction.executeSql(createClientGroup, []);
-        //_transaction.executeSql(createClient, []);
+        _transaction.executeSql(createClientGroup, []);
+        _transaction.executeSql(createClient, []);
 
         //_transaction.executeSql('insert into client_group(`date`) values ("2020-12-10")', [])
-        //_transaction.executeSql('insert into client(`id_client_group`, `name`) values (1, "Quach Hoai Nam")', [])
+        //_transaction.executeSql('insert into client(`id_client_group`, `name`) values (2, "Gia Cac Luong")', [])
 
         //_transaction.executeSql('select * from client_group', [], function(tx, res) {
         //    console.log(res.rows);

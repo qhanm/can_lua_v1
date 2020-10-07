@@ -16,18 +16,17 @@ class ListClientComponent extends React.Component
         }
     }
     componentDidMount() {
-        const test = this.getClientGroup(db).then(function (data){
+        let that = this;
+        this.getClientGroup(db).then(function (data){
             //console.log(data, 'did mount')
             let result = [];
             for (let i = 0; i < data.rows.length; ++i) {
                 result.push(data.rows.item(i));
             }
-            console.log(result, 'result');
 
-            this.setState({clientGroup: result})
+            that.setState({clientGroup: result})
         })
 
-        console.log(test, 'test');
 
     }
 
@@ -35,16 +34,10 @@ class ListClientComponent extends React.Component
         return new Promise((resolve, reject) => {
             db.transaction(tx => {
                 tx.executeSql('select * from client_group', [], (tx, results) => {
-                    //const { rows } = results;
-                    //let result = [];
-                    //for (let i = 0; i < rows.length; i++) {
-                    //    result.push(rows.item(i))
-                    //}
                     resolve(results);
                 });
             });
         });
-
     }
 
     getHeightView = (event) => {
@@ -63,21 +56,20 @@ class ListClientComponent extends React.Component
     }
 
     render() {
-        console.log(this.state.clientGroup, 'render');
         return (
             <View>
                 <SafeAreaView>
                     <ScrollView contentContainerStyle={{paddingBottom: 200}}>
                         <View style={styles.container} onLayout={(event) => { this.getHeightView(event) }}>
-                            <View style={[styles.row, DefaultStyle.Card]}>
-                                <GroupClient navigation={this.props.navigation}/>
-                            </View>
-                            <View style={[styles.row, DefaultStyle.Card]}>
-                                <GroupClient navigation={this.props.navigation}/>
-                            </View>
-                            <View style={[styles.row, DefaultStyle.Card]}>
-                                <GroupClient navigation={this.props.navigation}/>
-                            </View>
+                            { this.state.clientGroup.map((group, key) => {
+
+                                return (
+                                    <View style={[styles.row, DefaultStyle.Card]} key={key}>
+                                        <GroupClient navigation={this.props.navigation} group={group}/>
+                                    </View>
+                                )
+                            }) }
+
                         </View>
 
                     </ScrollView>

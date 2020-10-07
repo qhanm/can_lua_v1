@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, TextInput} from "react-native";
 import {Color, DefaultStyle} from "../../utils/Constant";
 import { Button } from 'react-native-elements';
 import {IconCustom} from "../layout/IconCustom";
-
 const styles = StyleSheet.create({
     container: {
         alignItems: 'center',
@@ -35,8 +34,30 @@ const styles = StyleSheet.create({
     }
 })
 
+const Root = () => {
+    return <Toast ref={(ref) => Toast.setRef(ref)} />;
+};
+
 export default class AddClientComponent extends Component
 {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: "",
+        }
+    }
+
+    componentDidMount() {
+
+    }
+
+    __renderAlert = () => {
+        Toast.show({
+            text1: 'Hello',
+            text2: 'This is some something 👋'
+        });
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -50,16 +71,20 @@ export default class AddClientComponent extends Component
                                 style={[DefaultStyle.InputNumber, styles.input]}
                             />
                         </View>
+
                     </View>
+
                     <View style={[styles.row, {width: '100%', justifyContent: 'center'}]}>
                         <Button
                             icon={ IconCustom.Save }
                             title="Lưu"
-
                             buttonStyle={{paddingLeft: 50, paddingRight: 50}}
+                            onPress={() => {
+                                console.log('cliclk');
+                            }}
                         />
                     </View>
-
+                    { this.__renderAlert() }
                 </View>
             </View>
         )

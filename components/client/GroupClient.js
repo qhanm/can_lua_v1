@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Color, DefaultStyle, Font, PageConstant} from "../../utils/Constant";
 import { Icon } from 'react-native-elements'
 import {SessionContext} from "../../context/SessionProvider";
+import { db } from '../../databases/Setup';
 
 const styles = StyleSheet.create({
     container: {},
@@ -47,11 +48,34 @@ class GroupClient extends React.Component
         this.state = {
             widthViewClientRight: 0,
             widthIconDelete: 0,
+            clients: []
         }
     }
 
     componentDidMount() {
+        let that = this;
+        this.getClient(db).then((result) => {
 
+            let _return = [];
+
+            for (let i = 0; i < result.rows.length; i++)
+            {
+                _return.push(result.rows.item(i));
+            }
+
+            this.setState({clients: _return});
+        })
+    }
+
+    getClient(db) {
+        const { group } = this.props;
+        return new Promise((resolve, reject) => {
+            db.transaction(tx => {
+                tx.executeSql('select * from client where id_client_group = "'+ group.id +'"', [], (tx, results) => {
+                    resolve(results);
+                });
+            });
+        });
     }
 
     getHeightView = (event) => {
@@ -71,6 +95,8 @@ class GroupClient extends React.Component
     }
 
     render() {
+        const { group } = this.props;
+        console.log(group);
         return (
             <SessionContext.Consumer>
                 {
@@ -78,29 +104,37 @@ class GroupClient extends React.Component
                         <View style={styles.container}>
                             <View style={styles.header}>
                                 <Icon name='today' color={Color.Blue}/>
-                                <Text style={[styles.textHeader, styles.headerBase]}>2000-01-24</Text>
+                                <Text style={[styles.textHeader, styles.headerBase]}>{ group.date }</Text>
                             </View>
                             <View>
-                                <View style={[DefaultStyle.Card, styles.row]} onLayout={(event) => {this.getHeightView(event)}}>
-                                    <View onLayout={(event) => { this.getWidthIconDelete(event) }}>
-                                        <Icon name='delete' color={Color.White} style={styles.iconDelete}/>
-                                    </View>
-                                    <TouchableOpacity
-                                        onPress={() => { this.__onPressClient(sessionContext, this.props.navigation) }}
-                                    >
-                                        <View style={[styles.rowRightContent, {width: this.state.widthViewClientRight}]}>
-                                            <Text style={{marginLeft: 10, fontFamily: Font}}>Quach Hoai Nam</Text>
-                                            <Text style={{marginRight: 8}}>
-                                                <Icon
-                                                    name='chevron-right'
-                                                    type='font-awesome'
-                                                    color={Color.Red}
+                                {
+                                    this.state.clients.map((client, key) => {
+                                        return (
+                                            <View style={[DefaultStyle.Card, styles.row]} onLayout={(event) => {this.getHeightView(event)}} key={key}>
+                                                <View onLayout={(event) => { this.getWidthIconDelete(event) }}>
+                                                    <Icon name='delete' color={Color.White} style={styles.iconDelete}/>
+                                                </View>
+                                                <TouchableOpacity
+                                                    onPress={() => { this.__onPressClient(sessionContext, this.props.navigation) }}
+                                                >
+                                                    <View style={[styles.rowRightContent, {width: this.state.widthViewClientRight}]}>
+                                                        <Text style={{marginLeft: 10, fontFamily: Font}}>{ client.name }</Text>
+                                                        <Text style={{marginRight: 8}}>
+                                                            <Icon
+                                                                name='chevron-right'
+                                                                type='font-awesome'
+                                                                color={Color.Red}
 
-                                                    onPress={() => console.log('hello')} />
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
+                                                                onPress={() => console.log('hello')} />
+                                                        </Text>
+                                                    </View>
+                                                </TouchableOpacity>
+                                            </View>
+                                        )
+                                    })
+                                }
+
+
 
                             </View>
                         </View>
